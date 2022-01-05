@@ -57,14 +57,13 @@ class CleanCommand(Command):
 
 
 setup(
-    name='convenient_utils',
+    name='attr',
     version='0.1.0',
     packages=find_packages(),
     url='https://github.com/ChaseMonsterAway/AttrFunctions',
     author='junsun',
     author_email='junsunxidian@163.com',
     description='Attr functions for project.',
-    long_description=read('usage.md'),
     install_requires=[],
     python_requires='>3.6',
     cmdclass={
