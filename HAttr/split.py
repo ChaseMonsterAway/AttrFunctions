@@ -13,7 +13,7 @@ def self_sorted(x):
     return int(x[0][:-4].split('_')[-1])
 
 
-def train_val_split(name_list, train_ratio=0.8, sort_func=None):
+def train_val_split(name_list, train_ratio=0.8, sort_func=None, seed=None):
     """
     根据给定的`list`按照给定的`ratio`进行划分
     - `name_list`：带划分列表
@@ -21,6 +21,9 @@ def train_val_split(name_list, train_ratio=0.8, sort_func=None):
     - `sort_func`: 对文件名排序时传入`sorted`的函数
     """
     assert isinstance(name_list, (list, tuple))
+    if seed is not None:
+        assert isinstance(seed, int)
+        random.seed(seed)
     random.shuffle(name_list)
     train_end = int(len(name_list) * train_ratio)
     train_name_list = name_list[:train_end]
@@ -45,7 +48,7 @@ def write(contents, f_path, f_mode, line_split_tag):
 def train_val_split_write(
         name_list, train_ratio, train_file, val_file,
         tmode='w', vmode='w', line_split_tag='\t',
-        sort_func=None,
+        sort_func=None, seed=None
 ):
     """
     根据给定的`list`按照给定的`ratio`进行划分，**并分别写入到对应的文件中**
@@ -73,7 +76,7 @@ def train_val_split_write(
 
     """
     train_names, val_names = \
-        train_val_split(name_list, train_ratio=train_ratio, sort_func=sort_func)
+        train_val_split(name_list, train_ratio=train_ratio, sort_func=sort_func, seed=seed)
     write(train_names, train_file, tmode, line_split_tag=line_split_tag)
     write(val_names, val_file, vmode, line_split_tag=line_split_tag)
     return
