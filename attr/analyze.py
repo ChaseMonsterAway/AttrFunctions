@@ -9,7 +9,7 @@ def label_distribution(txt, plot=False):
         for line in f.readlines():
             labels = line.split(' ')[1:]
             for label in labels:
-                label_dict[label] += 1
+                label_dict[label.strip()] += 1
     if plot:
         plt.bar(
             range(len(label_dict)), label_dict.values(), tick_label=list(label_dict.keys())
