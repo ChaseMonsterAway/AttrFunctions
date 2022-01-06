@@ -2,12 +2,12 @@ import os
 import random
 
 
-def _sorted(x):
+def self_sorted(x):
     """
     提供给排序函数`sorted`的基础函数
     Example:
     >>>> a = [('1.jpg', '1.json'), ('10.jpg', '10.json'), ('2.jpg', '2.json')]
-    >>>> a = sorted(a, key=_sorted) # a = [('1.jpg', '1.json'), ('2.jpg', '2.json'), ('10.jpg', '10.json')] # noqa 501
+    >>>> a = sorted(a, key=self_sorted) # a = [('1.jpg', '1.json'), ('2.jpg', '2.json'), ('10.jpg', '10.json')] # noqa 501
     """
 
     return int(x[0][:-4].split('_')[-1])
@@ -26,8 +26,8 @@ def train_val_split(name_list, train_ratio=0.8, sort_func=None):
     train_name_list = name_list[:train_end]
     val_name_list = name_list[train_end:]
     if sort_func is not None:
-        train_name_list = sorted(train_name_list, key=_sorted)
-        val_name_list = sorted(val_name_list, key=_sorted)
+        train_name_list = sorted(train_name_list, key=self_sorted)
+        val_name_list = sorted(val_name_list, key=self_sorted)
     return train_name_list, val_name_list
 
 
@@ -99,7 +99,7 @@ def main():
         ])
 
     train_val_split_write(
-        name_list, 0.8, train_file, val_file, tmode, vmode, _sorted
+        name_list, 0.8, train_file, val_file, tmode, vmode, self_sorted
     )
 
 

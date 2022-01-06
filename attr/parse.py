@@ -2,7 +2,7 @@ import re
 import json
 
 
-def _load(jpath, encoding='utf-8'):
+def load(jpath, encoding='utf-8'):
     """
     读取json文件内容
 
@@ -12,7 +12,7 @@ def _load(jpath, encoding='utf-8'):
     return json.load(open(jpath, 'r', encoding=encoding))
 
 
-def _one_step_single_parse(content, type='cls'):
+def one_step_single_parse(content, type='cls'):
     keys = list(content.keys())
     steps = [k for k in keys if 'step' in k]
     src_lists = dict()
@@ -24,7 +24,7 @@ def _one_step_single_parse(content, type='cls'):
             source_id = lres['sourceID']
 
 
-def _cls_step_parse(content, skip_version=False):
+def cls_step_parse(content, skip_version=False):
     """
     分类步骤内容解析, 返回 `list(tuple(sourceID, list(attr)), .....)`
 
@@ -73,7 +73,8 @@ def _cls_step_parse(content, skip_version=False):
             # skip version type
             if skip_version and re.match('v[0123456789]+.*', value):
                 continue
-            attrs.extend(value.split(';'))
+            value = [v.strip() for v in value.split(';')]
+            attrs.extend(value)
         parse_res.append(
             (source_id, attrs)
         )
@@ -81,10 +82,10 @@ def _cls_step_parse(content, skip_version=False):
 
 
 if __name__ == '__main__':
-    jcontents = _load(
+    jcontents = load(
         r'H:\dataset\public\human_related\attr\sefl-labeled\20211222\json\20211222_1.jpg.json'
     )
-    res = _cls_step_parse(jcontents['step_1'], skip_version=True)
+    res = cls_step_parse(jcontents['step_1'], skip_version=True)
     a = {'toolName': 'tagTool',
          'result': [
              {'id': '49op0v5Q',

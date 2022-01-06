@@ -1,13 +1,15 @@
 # split
 
-`_sorted`:
+`self_sorted`:
 
 提供给排序函数`sorted`的基础函数
 
 ```python
+from attr import self_sorted
+
 a = [('1.jpg', '1.json'), ('10.jpg', '10.json'), ('2.jpg', '2.json')]
 
-a = sorted(a, key=_sorted)
+a = sorted(a, key=self_sorted)
 # a = [('1.jpg', '1.json'), ('2.jpg', '2.json'), ('10.jpg', '10.json')]
 ```
 
@@ -41,6 +43,8 @@ a = sorted(a, key=_sorted)
 - `sort_func`: 对文件名进行排序时传入`sorted`的函数
 
 ```python
+from attr import train_val_split_write
+
 def _sort(x):
     return int(x[0][:-4])
 
@@ -82,6 +86,8 @@ train_val_split_write(name_list, train_ratio, train_f, val_f, mode, mode, sort_f
 - `skip_version`：返回属性中跳过版本号
 
 ```python
+from attr import cls_step_parse
+
 content = {'toolName': 'tagTool',
          'result': [
              {'id': '49op0v5Q',
@@ -105,13 +111,13 @@ content = {'toolName': 'tagTool',
                   'class-7': 'NoGloves',
                   'class-version': 'v1.1'}}]
          } # 从labelbee的标注文件中获取的基于分类的step_1的内容
-res = _cls_step_parse(content, skip_tag=True)
+res = cls_step_parse(content, skip_version=True)
 """
 [ ('', ['Male', 'UpperBodyLongSleeve', 'LowerBodyTrousers', 'NoHats', 'NoMask', 'NoMuffler', 'OtherShoes', 'UpRight', 'Front', 'NoUpperTrunc', 'NoLowerTrunc', 'NoOcclusion', 'NoSmoke', 'NoPhone', 'HandHoldNothing', 'NoGloves']),
 ]
 """
 
-res = _cls_step_parse(content)
+res = cls_step_parse(content)
 """
 [ ('', ['Male', 'UpperBodyLongSleeve', 'LowerBodyTrousers', 'NoHats', 'NoMask', 'NoMuffler', 'OtherShoes', 'UpRight', 'Front', 'NoUpperTrunc', 'NoLowerTrunc', 'NoOcclusion', 'NoSmoke', 'NoPhone', 'HandHoldNothing', 'NoGloves', 'v1.1']),
 ]
