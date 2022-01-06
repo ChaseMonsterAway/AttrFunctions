@@ -5,7 +5,7 @@
 提供给排序函数`sorted`的基础函数
 
 ```python
-from attr import self_sorted
+from HAttr import self_sorted
 
 a = [('1.jpg', '1.json'), ('10.jpg', '10.json'), ('2.jpg', '2.json')]
 
@@ -43,10 +43,12 @@ a = sorted(a, key=self_sorted)
 - `sort_func`: 对文件名进行排序时传入`sorted`的函数
 
 ```python
-from attr import train_val_split_write
+from HAttr import train_val_split_write
+
 
 def _sort(x):
     return int(x[0][:-4])
+
 
 name_list = [
     ['1.jpg', '1.json'],
@@ -55,8 +57,8 @@ name_list = [
 
 train_f = 'train.txt'
 val_f = 'val.txt'
-mode='w'
-train_ratio=0.5
+mode = 'w'
+train_ratio = 0.5
 
 train_val_split_write(name_list, train_ratio, train_f, val_f, mode, mode, sort_func=_sort)
 ```
@@ -86,31 +88,31 @@ train_val_split_write(name_list, train_ratio, train_f, val_f, mode, mode, sort_f
 - `skip_version`：返回属性中跳过版本号
 
 ```python
-from attr import cls_step_parse
+from HAttr import cls_step_parse
 
 content = {'toolName': 'tagTool',
-         'result': [
-             {'id': '49op0v5Q',
-              'sourceID': '',
-              'result': {
-                  'class-1': 'Male',
-                  'class-2': 'UpperBodyLongSleeve',
-                  'class-3': 'LowerBodyTrousers',
-                  'class-4': 'NoHats',
-                  'class-5': 'NoMask',
-                  'class-6': 'NoMuffler',
-                  'class-8': 'OtherShoes',
-                  'class-9': 'UpRight',
-                  'class-10': 'Front',
-                  'class-11': 'NoUpperTrunc',
-                  'class-12': 'NoLowerTrunc',
-                  'class-13': 'NoOcclusion',
-                  'class-14': 'NoSmoke',
-                  'class-15': 'NoPhone',
-                  'class-16': 'HandHoldNothing',
-                  'class-7': 'NoGloves',
-                  'class-version': 'v1.1'}}]
-         } # 从labelbee的标注文件中获取的基于分类的step_1的内容
+           'result': [
+               {'id': '49op0v5Q',
+                'sourceID': '',
+                'result': {
+                    'class-1': 'Male',
+                    'class-2': 'UpperBodyLongSleeve',
+                    'class-3': 'LowerBodyTrousers',
+                    'class-4': 'NoHats',
+                    'class-5': 'NoMask',
+                    'class-6': 'NoMuffler',
+                    'class-8': 'OtherShoes',
+                    'class-9': 'UpRight',
+                    'class-10': 'Front',
+                    'class-11': 'NoUpperTrunc',
+                    'class-12': 'NoLowerTrunc',
+                    'class-13': 'NoOcclusion',
+                    'class-14': 'NoSmoke',
+                    'class-15': 'NoPhone',
+                    'class-16': 'HandHoldNothing',
+                    'class-7': 'NoGloves',
+                    'class-version': 'v1.1'}}]
+           }  # 从labelbee的标注文件中获取的基于分类的step_1的内容
 res = cls_step_parse(content, skip_version=True)
 """
 [ ('', ['Male', 'UpperBodyLongSleeve', 'LowerBodyTrousers', 'NoHats', 'NoMask', 'NoMuffler', 'OtherShoes', 'UpRight', 'Front', 'NoUpperTrunc', 'NoLowerTrunc', 'NoOcclusion', 'NoSmoke', 'NoPhone', 'HandHoldNothing', 'NoGloves']),

@@ -57,8 +57,8 @@ class CleanCommand(Command):
 
 
 setup(
-    name='attr',
-    version='0.1.0',
+    name='HAttr',
+    version='0.1.1',
     packages=find_packages(),
     url='https://github.com/ChaseMonsterAway/AttrFunctions',
     author='junsun',
