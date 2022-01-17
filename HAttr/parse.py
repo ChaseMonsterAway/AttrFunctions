@@ -98,7 +98,7 @@ def two_step_parse_with_crop(source_img_dir, source_json_dir, save_dir):
             assert s2res[0] != ''
             step2_img_name = name_dict[s2res[0]]
             parse_res.append(
-                (step2_img_name, step2_res[1])
+                (step2_img_name, s2res[1])
             )
     return parse_res
 
