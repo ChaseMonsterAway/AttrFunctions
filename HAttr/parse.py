@@ -86,13 +86,20 @@ def two_step_parse_with_crop(source_img_dir, source_json_dir, save_dir):
         assert os.path.exists(img_path), f"Image '{img_path}' not exists."
         jcontents = load(json_path)
         step1_contents = jcontents.get('step_1', None)
-        step2_contents = jcontents['step_2']
+
         if step1_contents is None:
             print(f'Step1 is blank in {json_path}, SKIP!')
             continue
         img = cv2.imdecode(np.fromfile(img_path, dtype=np.uint8), cv2.IMREAD_COLOR)
         # crop the img based on the detection annotations
         name_dict = crop_det_img(img, step1_contents, save_dir)
+
+        step2_contents = jcontents.get('step_2', None)
+        if step2_contents is None:
+            import warnings
+            warnings.RuntimeWarning(
+                f'Step 2 is None in {json_path}'
+            )
         step2_res = cls_step_parse(step2_contents, skip_version=True)
         for s2res in step2_res:
             assert s2res[0] != ''
