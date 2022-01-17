@@ -31,7 +31,7 @@ def one_step_single_parse(content, type='cls'):
 
 def extract_loc(info: dict):
     x, y, width, height = info['x'], info['y'], info['width'], info['height']
-    return x, y, x + width, y + height
+    return int(x), int(y), int(x + width), int(y + height)
 
 
 def det_parse(content):
