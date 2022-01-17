@@ -98,6 +98,7 @@ def two_step_parse_with_crop(source_img_dir, source_json_dir, save_dir):
         if step2_contents is None:
             import warnings
             warnings.warn(f'Step 2 is None in {json_path}', RuntimeWarning)
+            continue
         step2_res = cls_step_parse(step2_contents, skip_version=True)
         for s2res in step2_res:
             assert s2res[0] != ''
