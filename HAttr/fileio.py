@@ -14,11 +14,11 @@ def write_attr_to_file(parse_res, img_prefix, txt):
     with open(txt, 'w', encoding='utf-8') as f:
         for res in parse_res:
             img_name, r = res
-            if r and r[0][1]:
-                if len(r[0][1]) == 1 and re.match('v[0123456789]+.*', r[0][1][0]):
+            if r:
+                if len(r) == 1 and re.match('v[0123456789]+.*', r[0]):
                     continue
-                if len(r[0][1]) == 1 and r[0][1][0] == 'GeneralHumanAttribute':
+                if len(r) == 1 and r[0] == 'GeneralHumanAttribute':
                     continue
-                attrs = ' '.join(r[0][1])
+                attrs = ' '.join(r)
                 f.writelines(f'{os.path.join(img_prefix, img_name)} {attrs}\n')
                 f.flush()
